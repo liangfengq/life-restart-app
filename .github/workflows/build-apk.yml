@@ -24,13 +24,24 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # ubuntu-latest 已预装 Android SDK（ANDROID_HOME + sdkmanager），无需额外 setup
+      # 新版 ubuntu runner 不再预装 sdkmanager，自行安装 Google 官方 cmdline-tools
+      - name: Setup Android cmdline-tools
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          if [ ! -f "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" ]; then
+            sudo mkdir -p "$SDK_ROOT/cmdline-tools"
+            wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/clt.zip
+            sudo unzip -q /tmp/clt.zip -d "$SDK_ROOT/cmdline-tools"
+            sudo mv "$SDK_ROOT/cmdline-tools/cmdline-tools" "$SDK_ROOT/cmdline-tools/latest"
+          fi
+          "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --version
 
       - name: Accept SDK licenses
-        run: yes | sdkmanager --licenses || true
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Install SDK packages (compileSdk 34 + build-tools)
-        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+        run: "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0"
 
       - name: Install npm dependencies
         run: npm ci
