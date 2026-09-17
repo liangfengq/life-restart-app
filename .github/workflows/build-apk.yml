@@ -24,8 +24,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      # ubuntu-latest 已预装 Android SDK（ANDROID_HOME + sdkmanager），无需额外 setup
 
       - name: Accept SDK licenses
         run: yes | sdkmanager --licenses || true
