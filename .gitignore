@@ -1,0 +1,22 @@
+# 依赖与构建产物
+node_modules/
+dist/
+android/.gradle/
+android/app/build/
+android/build/
+.capacitor/
+
+# 日志
+*.log
+install*.log
+build*.log
+cap*.log
+cacheclean.log
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 密钥库（签名用，勿提交）
+*.jks
+*.keystore

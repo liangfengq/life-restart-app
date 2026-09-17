@@ -1,0 +1,19 @@
+{
+  "name": "人生重启 · AI Life Restart",
+  "short_name": "人生重启",
+  "description": "AI 人生重启 · 个人成长打卡",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f3ee",
+  "theme_color": "#c8442b",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
