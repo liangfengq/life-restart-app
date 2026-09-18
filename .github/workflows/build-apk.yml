@@ -48,6 +48,9 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Build web bundle (vite)
+        run: npm run build
+
       - name: Sync Capacitor native project
         run: npx cap sync android
 
